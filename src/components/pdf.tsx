@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import JsPdf from 'jspdf'
 import html2canvas from 'html2canvas'
 
-class Pdf extends PureComponent<any> {
+export class Pdf extends PureComponent<any> {
   targetRef: React.RefObject<unknown>
   constructor(props: any) {
     super(props)
@@ -45,5 +45,3 @@ class Pdf extends PureComponent<any> {
     return children({ toPdf: this.toPdf, targetRef: this.targetRef })
   }
 }
-
-export { Pdf }

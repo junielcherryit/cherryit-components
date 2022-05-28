@@ -1,6 +1,6 @@
 {
   "name": "@cherryit/components",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "cherryit components",
   "author": "Juniel Brizola",
   "license": "MIT",
@@ -22,6 +22,12 @@
     "test:watch": "react-scripts test --env=jsdom",
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build"
+  },
+  "peerDependencies": {
+    "html2canvas": "^1.4.1",
+    "jodit-react": "^1.3.8",
+    "jspdf": "^2.5.1",
+    "react": "^16.13.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",

@@ -1,9 +1,19 @@
 /* eslint-disable no-unused-vars */
 import * as React from 'react'
-import JoditEditor, { JoditProps } from 'jodit-react'
 
-const Editor = React.forwardRef((props: JoditProps, ref) => (
-  <JoditEditor ref={ref as any} {...props} />
-))
+const JoditEditor = React.lazy(() => {
+  return import('jodit-react')
+})
+
+const Editor = React.forwardRef((props: any, ref) => {
+  if (typeof window === 'undefined') {
+    return null
+  }
+  return (
+    <React.Suspense fallback={<div>Loading</div>}>
+      <JoditEditor ref={ref as any} {...props} />
+    </React.Suspense>
+  )
+})
 
 export { Editor }

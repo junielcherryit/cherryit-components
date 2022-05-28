@@ -1,4 +1,3 @@
 import * as React from 'react';
-import { JoditProps } from 'jodit-react';
-declare const Editor: React.ForwardRefExoticComponent<JoditProps & React.RefAttributes<unknown>>;
+declare const Editor: React.ForwardRefExoticComponent<Pick<any, string | number | symbol> & React.RefAttributes<unknown>>;
 export { Editor };

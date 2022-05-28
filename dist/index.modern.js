@@ -1,12 +1,20 @@
-import React__default, { forwardRef, createElement, PureComponent } from 'react';
-import JoditEditor from 'jodit-react';
+import React__default, { lazy, forwardRef, createElement, Suspense, PureComponent } from 'react';
 import JsPdf from 'jspdf';
 import html2canvas from 'html2canvas';
 
+var JoditEditor = lazy(function () {
+  return import('jodit-react');
+});
 var Editor = forwardRef(function (props, ref) {
-  return createElement(JoditEditor, Object.assign({
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  return createElement(Suspense, {
+    fallback: createElement("div", null, "Loading")
+  }, createElement(JoditEditor, Object.assign({
     ref: ref
-  }, props));
+  }, props)));
 });
 
 var PreviewHtml = function PreviewHtml(_ref) {

@@ -1,15 +1,42 @@
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
+function _interopNamespace(e) {
+  if (e && e.__esModule) { return e; } else {
+    var n = {};
+    if (e) {
+      Object.keys(e).forEach(function (k) {
+        var d = Object.getOwnPropertyDescriptor(e, k);
+        Object.defineProperty(n, k, d.get ? d : {
+          enumerable: true,
+          get: function () {
+            return e[k];
+          }
+        });
+      });
+    }
+    n['default'] = e;
+    return n;
+  }
+}
+
 var React = require('react');
 var React__default = _interopDefault(React);
-var JoditEditor = _interopDefault(require('jodit-react'));
 var JsPdf = _interopDefault(require('jspdf'));
 var html2canvas = _interopDefault(require('html2canvas'));
 
+var JoditEditor = React.lazy(function () {
+  return new Promise(function (resolve) { resolve(_interopNamespace(require('jodit-react'))); });
+});
 var Editor = React.forwardRef(function (props, ref) {
-  return React.createElement(JoditEditor, Object.assign({
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  return React.createElement(React.Suspense, {
+    fallback: React.createElement("div", null, "Loading")
+  }, React.createElement(JoditEditor, Object.assign({
     ref: ref
-  }, props));
+  }, props)));
 });
 
 var PreviewHtml = function PreviewHtml(_ref) {

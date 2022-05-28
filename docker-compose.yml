@@ -8,8 +8,6 @@ services:
       dockerfile: Dockerfile
     tty: true
     restart: always
-    ports:
-      - "3000:3000"
     volumes:
     - .:/home/node
     

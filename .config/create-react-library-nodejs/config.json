@@ -1,0 +1,6 @@
+{
+	"manager": "npm",
+	"template": "typescript",
+	"author": "Juniel Brizola",
+	"license": "MIT"
+}

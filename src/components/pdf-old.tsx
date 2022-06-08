@@ -14,6 +14,8 @@ export class Pdf extends PureComponent<any> {
     const {
       targetRef,
       filename = 'download.pdf',
+      x = 0,
+      y = 0,
       scale = 1,
       options,
       onComplete
@@ -30,24 +32,12 @@ export class Pdf extends PureComponent<any> {
       useCORS: true,
       scale: scale
     })
-    const imgData = canvas.toDataURL('image/png')
-    const doc: any = new JsPdf(options)
-    const imgWidth = 210
-    const pageHeight = 295
-    const imgHeight = (canvas.height * imgWidth) / canvas.width
-    let heightLeft = imgHeight
-    let position = 0
-
-    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
-    heightLeft -= pageHeight
-    while (heightLeft >= 0) {
-      position = heightLeft - imgHeight
-      doc.addPage()
-      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
-      heightLeft -= pageHeight
-    }
-
-    if (onComplete) onComplete({ pdf: doc, filename })
+    const imgData = canvas.toDataURL()
+    const pdf: any = new JsPdf(options)
+    const width = pdf.internal.pageSize.getWidth()
+    const height = pdf.internal.pageSize.getHeight()
+    pdf.addImage(imgData, 'JPEG', x, y, width, height)
+    if (onComplete) onComplete({ pdf, filename })
   }
 
   render() {

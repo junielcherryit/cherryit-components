@@ -32,8 +32,8 @@ export class Pdf extends PureComponent<any> {
     })
     const imgData = canvas.toDataURL('image/png')
     const doc: any = new JsPdf(options)
-    const imgWidth = 210
-    const pageHeight = 295
+    const imgWidth = doc.internal.pageSize.getWidth()
+    const pageHeight = doc.internal.pageSize.getHeight()
     const imgHeight = (canvas.height * imgWidth) / canvas.width
     let heightLeft = imgHeight
     let position = 0

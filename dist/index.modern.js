@@ -71,10 +71,6 @@ var Pdf = /*#__PURE__*/function (_PureComponent) {
           targetRef = _this3$props.targetRef,
           _this3$props$filename = _this3$props.filename,
           filename = _this3$props$filename === void 0 ? 'download.pdf' : _this3$props$filename,
-          _this3$props$x = _this3$props.x,
-          x = _this3$props$x === void 0 ? 0 : _this3$props$x,
-          _this3$props$y = _this3$props.y,
-          y = _this3$props$y === void 0 ? 0 : _this3$props$y,
           _this3$props$scale = _this3$props.scale,
           scale = _this3$props$scale === void 0 ? 1 : _this3$props$scale,
           options = _this3$props.options,
@@ -91,13 +87,25 @@ var Pdf = /*#__PURE__*/function (_PureComponent) {
         useCORS: true,
         scale: scale
       })).then(function (canvas) {
-        var imgData = canvas.toDataURL();
-        var pdf = new JsPdf(options);
-        var width = pdf.internal.pageSize.getWidth();
-        var height = pdf.internal.pageSize.getHeight();
-        pdf.addImage(imgData, 'JPEG', x, y, width, height);
+        var imgData = canvas.toDataURL('image/png');
+        var doc = new JsPdf(options);
+        var imgWidth = doc.internal.pageSize.getWidth();
+        var pageHeight = doc.internal.pageSize.getHeight();
+        var imgHeight = canvas.height * imgWidth / canvas.width;
+        var heightLeft = imgHeight;
+        var position = 0;
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          doc.addPage();
+          doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+
         if (onComplete) onComplete({
-          pdf: pdf,
+          pdf: doc,
           filename: filename
         });
       });

@@ -87,20 +87,20 @@ var Pdf = /*#__PURE__*/function (_PureComponent) {
         useCORS: true,
         scale: scale
       })).then(function (canvas) {
-        var imgData = canvas.toDataURL('image/png');
+        var imgData = canvas.toDataURL('image/jpeg');
         var doc = new JsPdf(options);
         var imgWidth = doc.internal.pageSize.getWidth();
         var pageHeight = doc.internal.pageSize.getHeight();
         var imgHeight = canvas.height * imgWidth / canvas.width;
         var heightLeft = imgHeight;
         var position = 0;
-        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
 
         while (heightLeft >= 0) {
           position = heightLeft - imgHeight;
           doc.addPage();
-          doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
         }
 

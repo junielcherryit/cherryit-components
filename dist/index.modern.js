@@ -75,9 +75,7 @@ var Pdf = /*#__PURE__*/function (_PureComponent) {
           _this3$props$scale = _this3$props.scale,
           scale = _this3$props$scale === void 0 ? 1 : _this3$props$scale,
           options = _this3$props.options,
-          onComplete = _this3$props.onComplete,
-          _this3$props$compress = _this3$props.compression,
-          compression = _this3$props$compress === void 0 ? 'NONE' : _this3$props$compress;
+          onComplete = _this3$props.onComplete;
       var source = targetRef || _this3.targetRef;
       var targetComponent = source.current || source;
 
@@ -97,13 +95,13 @@ var Pdf = /*#__PURE__*/function (_PureComponent) {
         var imgHeight = canvas.height * imgWidth / canvas.width;
         var heightLeft = imgHeight;
         var position = 0;
-        doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight, undefined, compression);
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
 
         while (heightLeft >= 0) {
           position = heightLeft - imgHeight;
           doc.addPage();
-          doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight, undefined, compression);
+          doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
         }
 

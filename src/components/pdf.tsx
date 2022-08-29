@@ -16,8 +16,7 @@ export class Pdf extends PureComponent<any> {
       filename = 'download.pdf',
       scale = 1,
       options,
-      onComplete,
-      compression = 'NONE'
+      onComplete
     } = this.props
     const source = targetRef || this.targetRef
     const targetComponent = source.current || source
@@ -37,30 +36,12 @@ export class Pdf extends PureComponent<any> {
     let heightLeft = imgHeight
     let position = 0
 
-    doc.addImage(
-      imgData,
-      'PNG',
-      0,
-      position,
-      imgWidth,
-      imgHeight,
-      undefined,
-      compression
-    )
+    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
     heightLeft -= pageHeight
     while (heightLeft >= 0) {
       position = heightLeft - imgHeight
       doc.addPage()
-      doc.addImage(
-        imgData,
-        'PNG',
-        0,
-        position,
-        imgWidth,
-        imgHeight,
-        undefined,
-        compression
-      )
+      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
       heightLeft -= pageHeight
     }
 

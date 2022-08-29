@@ -39,7 +39,7 @@ export class Pdf extends PureComponent<any> {
 
     doc.addImage(
       imgData,
-      'JPEG',
+      'PNG',
       0,
       position,
       imgWidth,
@@ -53,7 +53,7 @@ export class Pdf extends PureComponent<any> {
       doc.addPage()
       doc.addImage(
         imgData,
-        'JPEG',
+        'PNG',
         0,
         position,
         imgWidth,
